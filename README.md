@@ -1,4 +1,47 @@
 # GoOnline Rekrutacja
+## Dokumentacja
+
+Dokumentacja funkcji znajduje się w pliku z kodem w formie docstringów
+
+Podpunkty zadania:
+1. Wczytanie danych:
+  - load_data - załadowanie danych z folderów do obiektów typu Dataset oraz podział na zbiory treningowy, walidacyjny oraz testowy, dane podzielone są na batche każdy po 16 próbek
+  - load_labels - wczytanie etykiet z nazw folderów
+2. Normalizacja danych:
+  - w funkcji prepare_model zostaje dodana warstwa Rescaling(1. / 255)
+3. Augmentacja danych:
+  - w funkcji prepare_model dodane zostają warstwy:
+  *  RandomFlip - losowe odbicia zdjęć
+  *  RandomRotation - losowe obrócenie zdjęć
+4. Stworzyć własny model:
+  - prepare_model - stworzony zostaje model z warstwami:
+    * Conv2D(8, 3)
+    * MaxPooling2D()
+    * Conv2D(16, 3)
+    * MaxPooling2D()
+    * Conv2D(32, 3)
+    * MaxPooling2D()
+    * Conv2D(32, 3)
+    * MaxPooling2D()
+    * Dropout(0.3)
+    * Flatten()
+    * Dense(128)
+    * Dense(4)
+5. Skompilować model:
+  - main - model zostaje skompilowany z:
+  - optymalizatorem RMSprop(learning_rate=0.0001),
+  - funkcją straty SparseCategoricalCrossentropy(from_logits=True)
+  - metryką accuracy
+6. Wytrenować model:
+  - train_model - model zostaje wytrenowany podczas 18 epok, w każdej epoce użyte są wszystkie dane ze zbioru treningowego - wykorzystane jest 60 batchy
+7. Zapisać model do pliku:
+  - main - model zapisany jest do pliku model.keras
+8. Wykreślić krzywe uczenia:
+  - plot_learning_curves - z obiektu history wczytane są dane o procesie uczenia oraz wykreślone wykresy accuracy oraz loss
+9. Przetestwać model:
+  - evaluate_model - wykonana jest predykcja dla wszystkich batchy zbioru testowego i przy pomocy biblioteki scikit-learn obliczone są metryki accuracy, precision, recall oraz f1-score
+10. Pokazać wynik predykcji dla 10 losowych obrazów
+  - show_random_predictions - zbiór testowy zostej przetasowany i zostaje wykonana predykcja na pierwszych 10 elementach zbioru oraz pokazany wynik przy pomocy biblioteki matplotlib
 
 ## Opis Wyników
 
